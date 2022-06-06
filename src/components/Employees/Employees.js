@@ -6,10 +6,11 @@ function Employees({changeIncrease, changeIsLiked, deleteEmployee, ...obj}) {
     return (
         <ul className="app-list list-group">
             {
-                data.map(item => {
+                data.map((item, index) => {
                     return (
                         <EmployeesItem 
-                            key={item.id} 
+                            key={index}
+                            id={item.id} 
                             name={item.name} 
                             salary={item.salary} 
                             isIncrease={item.isIncrease} 

@@ -34,27 +34,42 @@ class App extends Component {
 				}
 			]
 		}
+		this.id = 4	
 	}
 
-	changeIncrease = name => {
+	changeIncrease = id => {
 		this.setState(({employeesData}) => ({
-			employeesData: employeesData.map(item => item.name === name ? {...item, isIncrease: !item.isIncrease} : item)
+			employeesData: employeesData.map(item => item.id === id ? {...item, isIncrease: !item.isIncrease} : item)
 		}))
 	}
 
-	changeIsLiked = name => {
+	changeIsLiked = id => {
 		this.setState(({employeesData}) => ({
-			employeesData: employeesData.map(item => item.name === name ? {...item, isLiked: !item.isLiked} : item)
+			employeesData: employeesData.map(item => item.id === id ? {...item, isLiked: !item.isLiked} : item)
 		}))
 	}
 
-	deleteEmployee = name => {
+	deleteEmployee = id => {
 		this.setState(({employeesData}) => ({
-			employeesData: employeesData.filter(item => item.name != name)
+			employeesData: employeesData.filter(item => item.id != id)
+		}))
+	}
+
+	addEmployee = (name, salary) => {
+		this.setState(({employeesData}) => ({
+			employeesData: [...employeesData, {
+				id: this.id,
+				name,
+				salary,
+				isIncrease: false,
+				isLiked: false
+			}]
 		}))
 	}
 
 	render() {
+		const {employeesData} = this.state
+		
 		return (
 			<div className="app">
 				<AppInfo/>
@@ -65,12 +80,12 @@ class App extends Component {
 				</div>
 
 				<Employees 
-					data={this.state.employeesData} 
+					data={employeesData} 
 					changeIncrease={this.changeIncrease} 
 					changeIsLiked={this.changeIsLiked} 
 					deleteEmployee={this.deleteEmployee}
 				/>
-				<AddForm/>
+				<AddForm addEmployee={this.addEmployee}/>
 			</div>
 		)
 	}

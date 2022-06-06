@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from 'uuid';
 import {Component} from 'react';
 import AppInfo from './components/AppInfo/AppInfo';
 import SearchPanel from './components/SearchPanel/SearchPanel';
@@ -34,7 +35,6 @@ class App extends Component {
 				}
 			]
 		}
-		this.id = 4	
 	}
 
 	changeIncrease = id => {
@@ -58,7 +58,7 @@ class App extends Component {
 	addEmployee = (name, salary) => {
 		this.setState(({employeesData}) => ({
 			employeesData: [...employeesData, {
-				id: this.id,
+				id: uuidv4(),
 				name,
 				salary,
 				isIncrease: false,

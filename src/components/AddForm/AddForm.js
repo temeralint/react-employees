@@ -19,8 +19,10 @@ class AddForm extends Component {
     addEmployee = (e) => {
         e.preventDefault()
         this.props.addEmployee(this.state.name, this.state.salary)
-        this.state.name = ''
-        this.state.salary = ''
+        this.setState({
+            name: '',
+            salary: ''
+        })
     }
 
     render() {

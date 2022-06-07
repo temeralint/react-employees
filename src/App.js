@@ -13,21 +13,21 @@ class App extends Component {
 		this.state = {
 			employeesData: [
 				{
-					id: 1,
+					id: uuidv4(),
 					name: "Темирлан Т.",
 					salary: 2000,
 					isIncrease: false,
 					isLiked: true
 				},
 				{
-					id: 2,
+					id: uuidv4(),
 					name: "Сержан K.",
 					salary: 3500,
 					isIncrease: true,
 					isLiked: false
 				},
 				{
-					id: 3,
+					id: uuidv4(),
 					name: 'Торе Ж.',
 					salary: 4200,
 					isIncrease: false,
@@ -72,7 +72,7 @@ class App extends Component {
 		
 		return (
 			<div className="app">
-				<AppInfo/>
+				<AppInfo data={employeesData}/>
 
 				<div className="search_wrapper">
 					<SearchPanel/>

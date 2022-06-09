@@ -16,13 +16,22 @@ class AddForm extends Component {
         })
     }
 
-    addEmployee = (e) => {
+    addEmployee = e => {
         e.preventDefault()
-        this.props.addEmployee(this.state.name, this.state.salary)
-        this.setState({
-            name: '',
-            salary: ''
-        })
+        const numbers = this.state.name.replace(/\s/g, '').split('').filter(item => isNaN(+item) ? null : item)
+        if (numbers.length !== 0) {
+            alert('Имя не может содержать цифры')
+        } else if (this.state.name.length <= 3) {
+            alert('Введите имя, состоящее больше чем из трех символов')
+        } else if (this.state.salary.length == 0) {
+            alert('Введите зарплату сотрудника')
+        } else {
+            this.props.addEmployee(this.state.name, this.state.salary)
+            this.setState({
+                name: '',
+                salary: ''
+            })
+        }
     }
 
     render() {

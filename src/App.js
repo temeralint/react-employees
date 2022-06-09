@@ -21,31 +21,28 @@ class App extends Component {
 				},
 				{
 					id: uuidv4(),
-					name: "Сержан K.",
+					name: "Сержан К.",
 					salary: 3500,
 					isIncrease: true,
 					isLiked: false
 				},
 				{
 					id: uuidv4(),
-					name: 'Торе Ж.',
-					salary: 4200,
+					name: 'Торе А.',
+					salary: 500,
 					isIncrease: false,
 					isLiked: false
 				}
-			]
+			],
+			searchValue: ''
 		}
+
+		this.empDataCopy = this.state.employeesData
 	}
 
-	changeIncrease = id => {
+	changeProp = (id, prop) => {
 		this.setState(({employeesData}) => ({
-			employeesData: employeesData.map(item => item.id === id ? {...item, isIncrease: !item.isIncrease} : item)
-		}))
-	}
-
-	changeIsLiked = id => {
-		this.setState(({employeesData}) => ({
-			employeesData: employeesData.map(item => item.id === id ? {...item, isLiked: !item.isLiked} : item)
+			employeesData: employeesData.map(item => item.id === id ? {...item, [prop]: !item[prop]} : item)
 		}))
 	}
 
@@ -67,6 +64,34 @@ class App extends Component {
 		}))
 	}
 
+	onEmpSearch = searchValue => {
+		this.setState(({employeesData}) => ({
+			employeesData: employeesData.filter(item => {
+				if (item.name.includes(searchValue)) {
+					return item
+				}
+			})
+		}))
+	}
+
+	filterSalary = () => {
+		this.setState(({employeesData}) => ({
+			employeesData: employeesData.filter(item => item.salary > 1000)
+		}))
+	}
+
+	showAll = () => {
+		this.setState({
+			employeesData: this.empDataCopy
+		})
+	}
+
+	showIncrease = () => {
+		this.setState(({employeesData}) => ({
+			employeesData: employeesData.filter(item => item.isIncrease == true)
+		}))
+	}
+
 	render() {
 		const {employeesData} = this.state
 		
@@ -75,14 +100,17 @@ class App extends Component {
 				<AppInfo data={employeesData}/>
 
 				<div className="search_wrapper">
-					<SearchPanel/>
-					<AppFilter/>
+					<SearchPanel onEmpSearch={this.onEmpSearch}/>
+					<AppFilter
+						filterSalary={this.filterSalary}
+						showAll={this.showAll}
+						showIncrease={this.showIncrease}
+					/>
 				</div>
 
 				<Employees 
-					data={employeesData} 
-					changeIncrease={this.changeIncrease} 
-					changeIsLiked={this.changeIsLiked} 
+					data={employeesData}
+					changeProp={this.changeProp} 
 					deleteEmployee={this.deleteEmployee}
 				/>
 				<AddForm addEmployee={this.addEmployee}/>

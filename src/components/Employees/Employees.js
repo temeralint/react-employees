@@ -1,7 +1,7 @@
 import EmployeesItem from "../EmployeesItem";
 import './Employees.css';
 
-function Employees({changeIncrease, changeIsLiked, deleteEmployee, ...obj}) {
+function Employees({changeProp, deleteEmployee, ...obj}) {
     const {data} = obj
     return (
         <ul className="app-list list-group">
@@ -15,8 +15,7 @@ function Employees({changeIncrease, changeIsLiked, deleteEmployee, ...obj}) {
                             salary={item.salary} 
                             isIncrease={item.isIncrease} 
                             isLiked={item.isLiked}
-                            changeIncrease={changeIncrease}
-                            changeIsLiked={changeIsLiked}
+                            changeProp={changeProp}
                             deleteEmployee={deleteEmployee}
                         />
                     )

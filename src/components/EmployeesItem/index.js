@@ -1,6 +1,6 @@
 import './EmployeesItem.css';
 
-function EmployeesItem({id, name, salary, isIncrease, isLiked, changeIncrease, changeIsLiked, deleteEmployee}) {
+function EmployeesItem({id, name, salary, isIncrease, isLiked, changeProp, deleteEmployee}) {
     let classNames = "list-group-item d-flex justify-content-between"
     if (isIncrease) {
         classNames += " increase"
@@ -12,12 +12,12 @@ function EmployeesItem({id, name, salary, isIncrease, isLiked, changeIncrease, c
 
     return (
         <li className={classNames}>
-            <span className="list-group-item-label" onClick={() => changeIsLiked(id)}>{name}</span>
+            <span className="list-group-item-label" onClick={() => changeProp(id, 'isLiked')}>{name}</span>
             <input type="text" className="list-group-item-input" defaultValue={`${salary}$`}/>
             <div className='d-flex justify-content-center align-items-center'>
                 <button type="button"
                     className="btn-cookie btn-sm "
-                    onClick={() => changeIncrease(id)}
+                    onClick={() => changeProp(id, 'isIncrease')}
                 >
                     <i className="fas fa-cookie"></i>
                 </button>

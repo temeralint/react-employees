@@ -1,4 +1,4 @@
-import './EmployeesItem.css';
+import './EmployeesItem.scss';
 
 function EmployeesItem({id, name, salary, isIncrease, isLiked, changeProp, deleteEmployee}) {
     let classNames = "list-group-item d-flex justify-content-between"

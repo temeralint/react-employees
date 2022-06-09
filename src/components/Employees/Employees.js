@@ -1,5 +1,5 @@
 import EmployeesItem from "../EmployeesItem";
-import './Employees.css';
+import './Employees.scss';
 
 function Employees({changeProp, deleteEmployee, ...obj}) {
     const {data} = obj

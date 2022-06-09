@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import './SearchPanel.css';
+import './SearchPanel.scss';
 
 class SearchPanel extends Component {
     constructor(props) {
@@ -10,10 +10,8 @@ class SearchPanel extends Component {
     }
 
     onEmpSearch = e => {
-        this.setState({
-            searchValue: e.target.value 
-        })
-        this.props.onEmpSearch(this.state.searchValue)
+        
+        // this.props.onEmpSearch(this.state.searchValue)
     }
 
     render() {

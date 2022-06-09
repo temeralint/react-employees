@@ -5,7 +5,7 @@ import SearchPanel from './components/SearchPanel/SearchPanel';
 import AppFilter from './components/AppFilter/AppFilter';
 import Employees from './components/Employees/Employees';
 import AddForm from './components/AddForm/AddForm';
-import './App.css';
+import './App.scss';
 
 class App extends Component {
 	constructor(props) {
@@ -34,10 +34,9 @@ class App extends Component {
 					isLiked: false
 				}
 			],
-			searchValue: ''
+			searchValue: 'Т'
 		}
 
-		this.empDataCopy = this.state.employeesData
 	}
 
 	changeProp = (id, prop) => {
@@ -65,6 +64,7 @@ class App extends Component {
 	}
 
 	onEmpSearch = searchValue => {
+		console.log(searchValue)
 		this.setState(({employeesData}) => ({
 			employeesData: employeesData.filter(item => {
 				if (item.name.includes(searchValue)) {

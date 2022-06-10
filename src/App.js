@@ -29,7 +29,7 @@ class App extends Component {
 				{
 					id: uuidv4(),
 					name: 'Торе А.',
-					salary: 500,
+					salary: 980,
 					isIncrease: false,
 					isLiked: false
 				}
@@ -52,6 +52,9 @@ class App extends Component {
 	}
 
 	addEmployee = (name, salary) => {
+		const checkName = this.state.employeesData.filter(item => item.name == name).length
+		checkName !== 0 ? alert('Сотрудник с таким именем уже есть') 
+		: 
 		this.setState(({employeesData}) => ({
 			employeesData: [...employeesData, {
 				id: uuidv4(),
@@ -94,11 +97,9 @@ class App extends Component {
 
 	render() {
 		const {employeesData} = this.state
-		
 		return (
 			<div className="app">
 				<AppInfo data={employeesData}/>
-
 				<div className="search_wrapper">
 					<SearchPanel onEmpSearch={this.onEmpSearch}/>
 					<AppFilter

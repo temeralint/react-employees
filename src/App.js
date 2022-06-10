@@ -34,7 +34,7 @@ class App extends Component {
 					isLiked: false
 				}
 			],
-			searchValue: 'Т'
+			// searchValue: ''
 		}
 
 	}
@@ -66,15 +66,14 @@ class App extends Component {
 		}))
 	}
 
-	onEmpSearch = searchValue => {
+	onEmpSearch = (searchValue, data) => {
 		console.log(searchValue)
-		this.setState(({employeesData}) => ({
-			employeesData: employeesData.filter(item => {
-				if (item.name.includes(searchValue)) {
-					return item
-				}
-			})
-		}))
+		console.log(data)
+		// if (searchValue.length === 0) {
+		// 	return data
+		// } else {
+		// 	return data.filter(item => item.name.includes(searchValue))
+		// }
 	}
 
 	filterSalary = () => {
@@ -83,9 +82,9 @@ class App extends Component {
 		}))
 	}
 
-	showAll = () => {
+	showAll = data => {
 		this.setState({
-			employeesData: this.empDataCopy
+			employeesData: data
 		})
 	}
 
@@ -96,12 +95,12 @@ class App extends Component {
 	}
 
 	render() {
-		const {employeesData} = this.state
+		const {employeesData, searchValue} = this.state
 		return (
 			<div className="app">
 				<AppInfo data={employeesData}/>
 				<div className="search_wrapper">
-					<SearchPanel onEmpSearch={this.onEmpSearch}/>
+					<SearchPanel onEmpSearch={this.onEmpSearch} data={employeesData}/>
 					<AppFilter
 						filterSalary={this.filterSalary}
 						showAll={this.showAll}

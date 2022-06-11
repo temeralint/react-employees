@@ -12,7 +12,7 @@ class SearchPanel extends Component {
     onEmpSearch = e => {
         const searchValue = e.target.value
         this.setState({searchValue})
-        this.props.onEmpSearch(searchValue, this.props.data)
+        this.props.onUpdateSearch(searchValue)
     }
 
     render() {

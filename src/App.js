@@ -34,7 +34,7 @@ class App extends Component {
 					isLiked: false
 				}
 			],
-			// searchValue: ''
+			searchValue: ''
 		}
 
 	}
@@ -66,14 +66,12 @@ class App extends Component {
 		}))
 	}
 
+	onUpdateSearch = searchValue => {
+		this.setState({searchValue})
+	}
+
 	onEmpSearch = (searchValue, data) => {
-		console.log(searchValue)
-		console.log(data)
-		// if (searchValue.length === 0) {
-		// 	return data
-		// } else {
-		// 	return data.filter(item => item.name.includes(searchValue))
-		// }
+		return searchValue.length === 0 ? data : data.filter(item => item.name.includes(searchValue))
 	}
 
 	filterSalary = () => {
@@ -96,11 +94,13 @@ class App extends Component {
 
 	render() {
 		const {employeesData, searchValue} = this.state
+		const visibleData = this.onEmpSearch(searchValue, employeesData)
+
 		return (
 			<div className="app">
 				<AppInfo data={employeesData}/>
 				<div className="search_wrapper">
-					<SearchPanel onEmpSearch={this.onEmpSearch} data={employeesData}/>
+					<SearchPanel onUpdateSearch={this.onUpdateSearch}/>
 					<AppFilter
 						filterSalary={this.filterSalary}
 						showAll={this.showAll}
@@ -109,7 +109,7 @@ class App extends Component {
 				</div>
 
 				<Employees 
-					data={employeesData}
+					data={visibleData}
 					changeProp={this.changeProp} 
 					deleteEmployee={this.deleteEmployee}
 				/>

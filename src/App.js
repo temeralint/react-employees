@@ -34,7 +34,8 @@ class App extends Component {
 					isLiked: false
 				}
 			],
-			searchValue: ''
+			searchValue: '',
+			filter: 'all'
 		}
 
 	}
@@ -66,7 +67,7 @@ class App extends Component {
 		}))
 	}
 
-	onUpdateSearch = searchValue => {
+	updateSearch = searchValue => {
 		this.setState({searchValue})
 	}
 
@@ -74,38 +75,31 @@ class App extends Component {
 		return searchValue.length === 0 ? data : data.filter(item => item.name.includes(searchValue))
 	}
 
-	filterSalary = () => {
-		this.setState(({employeesData}) => ({
-			employeesData: employeesData.filter(item => item.salary > 1000)
-		}))
+	updateFilter = filter => {
+		this.setState({filter})
 	}
 
-	showAll = data => {
-		this.setState({
-			employeesData: data
-		})
-	}
-
-	showIncrease = () => {
-		this.setState(({employeesData}) => ({
-			employeesData: employeesData.filter(item => item.isIncrease == true)
-		}))
+	onEmpFilter = (filter, items) => {
+		switch (filter) {
+			case 'increase':
+				return items.filter(item => item.isIncrease == true)
+			case 'salary':
+				return items.filter(item => item.salary > 1000)
+			default:
+				return items
+		}
 	}
 
 	render() {
-		const {employeesData, searchValue} = this.state
-		const visibleData = this.onEmpSearch(searchValue, employeesData)
+		const {employeesData, searchValue, filter} = this.state
+		const visibleData = this.onEmpFilter(filter, this.onEmpSearch(searchValue, employeesData))
 
 		return (
 			<div className="app">
 				<AppInfo data={employeesData}/>
 				<div className="search_wrapper">
-					<SearchPanel onUpdateSearch={this.onUpdateSearch}/>
-					<AppFilter
-						filterSalary={this.filterSalary}
-						showAll={this.showAll}
-						showIncrease={this.showIncrease}
-					/>
+					<SearchPanel onUpdateSearch={this.updateSearch}/>
+					<AppFilter onUpdateFilter={this.updateFilter} activeButton={filter}/>
 				</div>
 
 				<Employees 

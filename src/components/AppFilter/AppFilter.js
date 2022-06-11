@@ -1,40 +1,30 @@
-import { Component } from 'react';
 import './AppFilter.scss';
 
-class AppFilter extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            allEmpActive: true,
-            increaseActive: false,
-            salaryActive: false
-        }
-    }
+function AppFilter({onUpdateFilter, activeButton}) {
+    const buttonsData = [
+        {name: 'all', label: 'Все сотрудники'},
+        {name: 'increase', label: 'На повышение'},
+        {name: 'salary', label: 'З/п больше 1000$'}
+    ]
 
-    render() {
+    const buttons = buttonsData.map((item, index) => {
+        const btnStyle = item.name === activeButton ? 'btn btn-light' : 'btn btn-outline-light'
         return (
-            <div className='btn-group'>
-                <button 
-                    className='btn btn-light' 
-                    onClick={this.props.showAll} 
-                >
-                    Все сотрудники
-                </button>
-                <button
-                    className='btn btn-outline-light' 
-                    onClick={this.props.showIncrease} 
-                >
-                    На повышение
-                </button>
-                <button 
-                    className='btn btn-outline-light' 
-                    onClick={this.props.filterSalary} 
-                >
-                    З/п больше 1000$
-                </button>
-            </div>
+            <button 
+                className={btnStyle} 
+                key={index}
+                onClick={() => onUpdateFilter(item.name)}
+            >
+                {item.label}
+            </button>
         )
-    }
+    })
+    
+    return (
+        <div className="btn-group">
+            {buttons}
+        </div>
+    )
 }
 
 export default AppFilter;
